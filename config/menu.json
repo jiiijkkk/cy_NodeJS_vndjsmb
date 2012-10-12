@@ -1,0 +1,12 @@
+{
+    "names": [
+        "Homepage",
+        "Message Board",
+        "Comment"
+    ],
+    "urls": [
+        "",
+        "mb",
+        "comment"
+    ]
+}

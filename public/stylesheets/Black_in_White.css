@@ -1,0 +1,39 @@
+body{
+    background: #ffffff;
+    color:#000000;
+}
+a:link{
+    color:#eb4f9c;
+}
+a:visited{
+    color:#8b6b2c;
+}
+a:hover{
+    color:#cb2f7c;
+}
+input{
+    color:#abb7ff;
+    background-color:#3a142f;
+}
+textarea{
+    color:#abb7ff;
+    background-color:#3a142f;
+}
+select{
+    color:#abb7ff;
+    background-color:#3a142f;
+}
+table, td, th
+{
+    border:1px solid #3a142f;
+    text-align: left;
+}
+th
+{
+    background-color:#3a142f;
+    color:white;
+}
+table
+{    
+    width:720px;
+}
