@@ -1,12 +1,22 @@
 {
     "names": [
         "Homepage",
-        "Message Board",
-        "Comment"
+        "Message Board"
     ],
     "urls": [
-        "",
-        "mb",
-        "comment"
-    ]
+        "/",
+        "/mb"
+    ],
+    "themes":{
+        "name":[
+            "Default",
+            "Black in White",
+            "White in Black"
+        ],
+        "file":[
+            "Default",
+            "Black_in_White",
+            "White_in_Black"
+        ]
+    }
 }

@@ -1,0 +1,9 @@
+{
+    "libraries": [
+        "jade",
+        "moment",
+        "mysql",
+        "cookies",
+        "keygrip"
+    ]
+}

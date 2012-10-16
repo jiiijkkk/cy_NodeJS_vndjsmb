@@ -4,13 +4,25 @@ block content
         h1= title
         table
             tr
-                td(width=200)
+                td(style= "vertical-align: top;")
                     ul
                         - for ( var i = 0; i < menu.names.length; i++ )
-                            <li><a href="#{menu.urls[i]}">#{menu.names[i]}</a></li>
+                            li
+                                a(href= menu.urls[i] ) #{ menu.names[i] }
+                    |   Theme :
+                    br
+                    form(name="theme_form", method= "POST")
+                        select(name= "theme", onchange= "document.theme_form.submit()")
+                            - for ( var i = 0 ; i < menu.themes.name.length; i++ )
+                                - if ( theme == menu.themes.file[i] )
+                                    option(value= '#{ menu.themes.file[i] }', selected= 'selected') #{ menu.themes.name[i] }
+                                - else
+                                    option(value= '#{ menu.themes.file[i] }') #{ menu.themes.name[i] }
+                        #{ theme }
                 td
                     block contentPage
-            tr
-                td
-                td
         p Welcome to #{title}
+    script
+        function thisPage(){
+               return document.location.pathname;
+       }

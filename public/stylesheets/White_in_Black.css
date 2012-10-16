@@ -33,7 +33,9 @@ th
     background-color:#00ab00;
     color:white;
 }
-table
-{    
-    width:720px;
+div
+{
+    width: 700px;
+    word-wrap: break-word;
+    word-break: normal; 
 }

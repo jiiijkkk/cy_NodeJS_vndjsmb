@@ -1,0 +1,70 @@
+extends ../index
+block contentPage
+        
+    DIV(id= "showComment", style= "display:")
+        INPUT(type= "button", value= "Comment", onclick= "javascript:displaySwitch()")
+    DIV(id= "comment", style= "display:none")
+        TABLE(style= "border:")
+            FORM(method= 'POST', action= 'comment')
+                TR
+                    TD
+                    
+                        FONT(size= '5')
+                            | A
+                        | ccount : 
+                        input(name= 'account', value= 'account')
+                    TD
+                        FONT(size= '5')
+                            | N
+                        | ickname : 
+                        input(name= 'nickname', value= 'nickname')
+                    TD
+                        FONT(size= '5')
+                            | M
+                        | obile : 
+                        input(name= 'mobile', value= 'mobile')
+                TR
+                    TD
+                        FONT(size= '5')
+                            | T
+                        | itle : 
+                        input(name= 'title', value= 'title')
+                    TD
+                        FONT(size= '5')
+                            | C
+                        | omment : 
+                        TEXTAREA(name= 'contant')
+                            | comment
+                    TD
+                        TABLE(style= "width:;")
+                            TR
+                                TD
+                                    INPUT(type= 'submit', value= 'Comment')
+                            TR
+                                TD
+                                    INPUT(type= 'button', value= 'Cancel', onclick= 'javascript:displaySwitch()')
+    - each message in messages
+        TABLE
+            TR
+                TH
+                    DIV #{ message.title } ... From #{ message.ip } @ #{ message.time }
+            TR
+                TD
+                    DIV #{ message.account } (#{ message.nickname }) 
+                        - if ( message.mobile != "")
+                            IMG(src='images/mobile.png', title='#{ message.mobile }')
+                        |   says:
+                    DIV #{ message.contant }
+                    
+    SCRIPT(type='text/javascript')
+        |   function displaySwitch(){
+        |       if(document.getElementById("showComment").style.display == 'none') {
+        |          document.getElementById("showComment").style.display = 'block';
+        |          document.getElementById("comment").style.display = 'none';
+        |       }
+        |       else {
+        |          document.getElementById("showComment").style.display = 'none';
+        |          document.getElementById("comment").style.display = 'block';
+        |       }
+        |   }
+        

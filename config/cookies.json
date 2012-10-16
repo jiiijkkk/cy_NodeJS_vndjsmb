@@ -1,0 +1,6 @@
+{
+    "theme":    "SYMFONY2_MSGB_THEME",
+    "account":  "SYMFONY2_MSGB_ACCOUNT",
+    "nickname": "SYMFONY2_MSGB_NICKNAME",
+    "mobile":   "SYMFONY2_MSGB_MOBILE"
+}
