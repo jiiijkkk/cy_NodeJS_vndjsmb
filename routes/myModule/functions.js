@@ -15,6 +15,37 @@ exports.getThemeFromCookies = function(req, res){
     return theme;
 }
 
+exports.setMessageFormFromPost = function(req, res){
+    cookiesManager.setCookie(req, res, cookie_config.messageForm.account, req.body.account);
+    cookiesManager.setCookie(req, res, cookie_config.messageForm.nickname, req.body.nickname);
+    cookiesManager.setCookie(req, res, cookie_config.messageForm.mobile, req.body.mobile);
+}
+
+exports.setMessagePageInfoFromPost = function(req, res, pageinfo){
+    cookiesManager.setCookie(req, res, cookie_config.messagePageInfo.pageSize, pageinfo.size);
+    cookiesManager.setCookie(req, res, cookie_config.messagePageInfo.pageNum, pageinfo.num);
+}
+
+exports.getMessageFormAndPageInfoFromCookies = function(req, res){
+    var account=    cookiesManager.getCookie(req, res, cookie_config.messageForm.account);
+    var nickname=   cookiesManager.getCookie(req, res, cookie_config.messageForm.nickname);
+    var mobile=     cookiesManager.getCookie(req, res, cookie_config.messageForm.mobile);
+    var pagesize=   cookiesManager.getCookie(req, res, cookie_config.messagePageInfo.pageSize);
+    var pagenum=    cookiesManager.getCookie(req, res, cookie_config.messagePageInfo.pageNum);
+    if(!account)    account=    "";
+    if(!nickname)   nickname=   "";
+    if(!mobile)     mobile=     "";
+    if(!pagesize)   pagesize=   cookie_config.defaultMessagePageSize;
+    if(!pagenum)    pagenum=    1;
+    return {
+        "account":  account,
+        "nickname": nickname,
+        "mobile":   mobile,
+        "pagesize": pagesize,
+        "pagenum":  pagenum
+    };
+}
+
 exports.getClientIP = function (req){
     var ipAddress;
     // Amazon EC2 / Heroku workaround to get real client IP
@@ -35,5 +66,5 @@ exports.getClientIP = function (req){
 };
 
 exports.getNow = function (){
-    return moment(new Date()).format("YYYY/MM/DD hh:mm:ss");
+    return moment(new Date()).format("YYYY/MM/DD HH:mm:ss");
 }

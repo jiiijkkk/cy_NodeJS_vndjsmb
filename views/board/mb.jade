@@ -1,40 +1,55 @@
 extends ../index
 block contentPage
-        
+    TABLE
+        TR
+            TD
+                DIV
+                    FORM(method= 'POST', action= '/mb/changepagenum')
+                        - for (var i = 1 ; i <= default_info.pagemax ; i++)
+                            - if ( i == default_info.pagenum )
+                                INPUT(name= 'pagenum', type= 'submit', value= '> #{ i } <')
+                            - else
+                                INPUT(name= 'pagenum', type= 'submit', value= '#{ i }')
+                    FORM(method= 'POST', action= '/mb/changepagesize')
+                        |   Pagesize:
+                        INPUT(name='pagesize', value= '#{ default_info.pagesize }', size= '1')
+                        INPUT(type= 'submit', value= 'Refresh')
     DIV(id= "showComment", style= "display:")
         INPUT(type= "button", value= "Comment", onclick= "javascript:displaySwitch()")
     DIV(id= "comment", style= "display:none")
         TABLE(style= "border:")
             FORM(method= 'POST', action= 'comment')
                 TR
+                    TD(colspan= '3')
+                        DIV
+                TR
                     TD
                     
                         FONT(size= '5')
                             | A
                         | ccount : 
-                        input(name= 'account', value= 'account')
+                        input(name= 'account', value= '#{ default_info.account }')
                     TD
                         FONT(size= '5')
                             | N
                         | ickname : 
-                        input(name= 'nickname', value= 'nickname')
+                        input(name= 'nickname', value= '#{ default_info.nickname }')
                     TD
                         FONT(size= '5')
                             | M
                         | obile : 
-                        input(name= 'mobile', value= 'mobile')
+                        input(name= 'mobile', value= '#{ default_info.mobile }')
                 TR
                     TD
                         FONT(size= '5')
                             | T
                         | itle : 
-                        input(name= 'title', value= 'title')
+                        input(name= 'title')
                     TD
                         FONT(size= '5')
                             | C
                         | omment : 
                         TEXTAREA(name= 'contant')
-                            | comment
                     TD
                         TABLE(style= "width:;")
                             TR

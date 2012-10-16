@@ -1,6 +1,13 @@
 {
     "theme":    "SYMFONY2_MSGB_THEME",
-    "account":  "SYMFONY2_MSGB_ACCOUNT",
-    "nickname": "SYMFONY2_MSGB_NICKNAME",
-    "mobile":   "SYMFONY2_MSGB_MOBILE"
+    "messageForm":{
+        "account":  "SYMFONY2_MSGB_ACCOUNT",
+        "nickname": "SYMFONY2_MSGB_NICKNAME",
+        "mobile":   "SYMFONY2_MSGB_MOBILE" 
+    },
+    "messagePageInfo":{
+        "pageSize": "NODEJS_VNDJSMB_PAGESIZE",
+        "pageNum":  "NODEJS_VNDJSMB_PAGENUM"
+    },
+    "defaultMessagePageSize":   10
 }

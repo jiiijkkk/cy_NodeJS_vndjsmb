@@ -35,6 +35,8 @@ app.get('/', routes.index);
 app.post('/', routes.indexReget);
 app.get('/mb', board.message);
 app.post('/mb', board.messageReget);
+app.post('/mb/changepagesize', board.changePageSize);
+app.post('/mb/changepagenum', board.changePageNum);
 app.post('/comment', board.comment);
 
 app.get('/users', user.list);

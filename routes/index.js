@@ -1,10 +1,11 @@
+var libraries = require('../config/libraries.json');
+var menu = require('../config/menu.json');
 
-/*
- * GET home page.
- */
+var functions = require('../routes/myModule/functions.js');
 
-exports.indexReget = function(req, res){    var functions = require('../routes/myModule/functions.js');
+exports.indexReget = function(req, res){
     functions.getThemeFromPost(req, res);
+    
     //  REDIRECT TO MESSAGE BOARD
     res.writeHead(301,
         {Location: '/'}
@@ -13,12 +14,9 @@ exports.indexReget = function(req, res){    var functions = require('../routes/m
 }
  
 exports.index = function(req, res){
-    var menu = require('../config/menu.json');
-    var functions = require('../routes/myModule/functions.js');
     
     theme = functions.getThemeFromCookies(req, res);
     
-    var libraries = require('../config/libraries.json');
     res.render(
         'homepage', 
         {

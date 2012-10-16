@@ -3,10 +3,12 @@ var databaseManager = require('./databaseManager.js');
 client = databaseManager.getClient(db_config);
 client.query('USE '+ db_config.database);
 
-exports.getMessages = function(callback){
+exports.getMessages = function(pagesize, pagenum, callback){
+    var start_seq= (pagenum-1)*pagesize;
     client.query(
         'SELECT * FROM '+ db_config.messages+
-        ' ORDER BY time DESC',
+        ' ORDER BY time DESC'+
+        ' LIMIT '+ start_seq+ ','+ pagesize,
         function selectCb(err, messages, fields) {
             if (err) {
                 throw err;
@@ -16,9 +18,27 @@ exports.getMessages = function(callback){
     );
 };
 
+exports.getMessageMax = function(callback){
+    client.query(
+    'SELECT * FROM '+ db_config.messages,
+        function selectCb(err, messages, fields) {
+            if (err) {
+                throw err;
+            }
+            callback(messages.length);
+        }
+    )
+};
+
+exports.getPageMax = function(pagesize, callback){
+    this.getMessageMax(function(messagemax){
+        callback(Math.ceil(messagemax/pagesize));
+    });
+};
+
 exports.getLastMessageID = function (callback){
     client.query(
-        'SELECT * FROM '+db_config.messages+
+        'SELECT id FROM '+db_config.messages+
         ' ORDER BY id DESC'+
         ' LIMIT 0,1',
         function selectCb(err, ids, fields) {
