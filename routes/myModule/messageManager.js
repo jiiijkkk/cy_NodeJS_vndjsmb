@@ -1,6 +1,6 @@
-var db_config = require('../../config/database.json');
-var databaseManager = require('./databaseManager.js');
-client = databaseManager.getClient(db_config);
+var db_config = require('../../config/database')
+  , databaseManager = require('./databaseManager')
+  , client = databaseManager.getClient(db_config);
 client.query('USE '+ db_config.database);
 
 exports.getMessages = function(pagesize, pagenum, callback){

@@ -1,7 +1,7 @@
-var libraries = require('../config/libraries.json');
-var menu = require('../config/menu.json');
+var libraries = require('../config/libraries')
+  , menu = require('../config/menu')
 
-var functions = require('../routes/myModule/functions.js');
+  , functions = require('../routes/myModule/functions');
 
 exports.indexReget = function(req, res){
     functions.getThemeFromPost(req, res);
@@ -14,7 +14,6 @@ exports.indexReget = function(req, res){
 }
  
 exports.index = function(req, res){
-    
     theme = functions.getThemeFromCookies(req, res);
     
     res.render(

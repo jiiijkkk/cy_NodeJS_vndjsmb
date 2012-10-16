@@ -1,7 +1,7 @@
-var menu = require('../config/menu.json');
+var menu = require('../config/menu')
 
-var functions = require('../routes/myModule/functions.js');
-var messageManager = require('../routes/myModule/messageManager.js');
+  , functions = require('../routes/myModule/functions')
+  , messageManager = require('../routes/myModule/messageManager');
 
 exports.messageReget = function(req, res){
     functions.getThemeFromPost(req, res);
@@ -21,7 +21,7 @@ exports.message = function(req, res){
     messageManager.getMessages(default_info.pagesize, default_info.pagenum, function(messages){
         for(var i = 0; i < messages.length; i++) {
             var moment = require( 'moment');
-            messages[i].time = moment(messages[i].time).format("YYYY/MM/DD hh:mm:ss");
+            messages[i].time = moment(messages[i].time).format("YYYY/MM/DD HH:mm:ss");
         }
         
         messageManager.getPageMax(default_info.pagesize, function(pagemax){
@@ -56,7 +56,6 @@ exports.changePageSize = function(req, res){
 
 exports.changePageNum = function(req, res){
     info = functions.getMessageFormAndPageInfoFromCookies(req, res);
-    console.log(req.body);
     functions.setMessagePageInfoFromPost(req, res, {
         "size": info.pagesize,
         "num":  req.body.pagenum

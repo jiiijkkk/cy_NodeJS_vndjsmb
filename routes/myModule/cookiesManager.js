@@ -1,6 +1,6 @@
-var Keygrip = require("keygrip");
-var Cookies = require("cookies");
-keys = new Keygrip;
+var Keygrip = require("keygrip")
+  , Cookies = require("cookies")
+  , keys = new Keygrip;
 
 exports.getCookie = function (req, res, name){
     var cookies = new Cookies (req, res, keys);

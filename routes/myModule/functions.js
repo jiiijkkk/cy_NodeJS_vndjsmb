@@ -1,6 +1,6 @@
-var cookie_config = require('../../config/cookies.json');
-var cookiesManager = require('./cookiesManager.js');
-var moment = require('moment');
+var cookie_config = require('../../config/cookies')
+  , cookiesManager = require('./cookiesManager')
+  , moment = require('moment');
 
 exports.getThemeFromPost = function(req, res){
     cookiesManager.setCookie(req, res, cookie_config.theme, req.body.theme);
