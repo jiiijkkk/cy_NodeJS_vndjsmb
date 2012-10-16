@@ -7,7 +7,7 @@ block contentPage
                     FORM(method= 'POST', action= '/mb/changepagenum')
                         - for (var i = 1 ; i <= default_info.pagemax ; i++)
                             - if ( i == default_info.pagenum )
-                                INPUT(name= 'pagenum', type= 'submit', value= '> #{ i } <')
+                                INPUT(name= 'pagenum', type= 'button', value= '> #{ i } <')
                             - else
                                 INPUT(name= 'pagenum', type= 'submit', value= '#{ i }')
                     FORM(method= 'POST', action= '/mb/changepagesize')
