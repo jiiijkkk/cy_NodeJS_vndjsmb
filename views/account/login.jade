@@ -1,0 +1,16 @@
+extends ../index
+block contentPage
+    TABLE
+        DIV
+            FORM(method= "POST", action ="/loginProcess")
+                TR
+                    TD
+                        |   Name : 
+                        INPUT(name= "account")
+                    TD(rowspan= '2')
+                        INPUT(type="submit", value= "Login")
+                TR
+                    TD
+                        |   Password : 
+                        INPUT(name= "password", type= "password")
+                        
