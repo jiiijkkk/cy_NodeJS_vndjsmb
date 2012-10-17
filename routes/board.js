@@ -1,17 +1,8 @@
 var menu = require('../config/menu')
 
+  , accountManager= require('./myModule/accountManager')
+  , messageManager= require('./myModule/messageManager')
   , functions=      require('./myModule/functions')
-  , messageManager= require('./myModule/messageManager');
-
-exports.messageReget = function(req, res){
-    functions.getThemeFromPost(req, res);
-    
-    //  REDIRECT TO MESSAGE BOARD
-    res.writeHead(301,
-        {Location: 'mb'}
-    );
-    res.end();
-};
 
 exports.message = function(req, res){
     var theme = functions.getThemeFromCookies(req, res);
@@ -32,6 +23,7 @@ exports.message = function(req, res){
                     title:  'Message Board',
                     theme:  theme,
                     menu:   menu,
+                    user:   accountManager.getUser(req),
                     
                     default_info:   default_info,
                     messages:       messages
@@ -41,17 +33,17 @@ exports.message = function(req, res){
     });
 };
 
+exports.messageReget = function(req, res){
+    functions.getThemeFromPost(req, res);
+    res.redirect('/mb');
+};
+
 exports.changePageSize = function(req, res){
     functions.setMessagePageInfoFromPost(req, res, {
         "size": req.body.pagesize,
         "num":  0
     });
-    
-    //  REDIRECT TO MESSAGE BOARD
-    res.writeHead(301,
-        {Location: '/mb'}
-    );
-    res.end();
+    res.redirect('/mb');
 }
 
 exports.changePageNum = function(req, res){
@@ -60,25 +52,11 @@ exports.changePageNum = function(req, res){
         "size": info.pagesize,
         "num":  req.body.pagenum
     });
-    
-    //  REDIRECT TO MESSAGE BOARD
-    res.writeHead(301,
-        {Location: '/mb'}
-    );
-    res.end();
+    res.redirect('/mb');
 }
 
 exports.comment = function(req, res){
-    //  ADD MESSAGE
     messageManager.addMessage(req);
-    
-    //  SET COOKIES
     functions.setMessageFormFromPost(req, res);
-    
-    //  REDIRECT TO MESSAGE BOARD
-    res.writeHead(301,
-        {Location: 'mb'}
-    );
-    res.end();
-    
+    res.redirect('/mb');
 };

@@ -1,17 +1,8 @@
-var libraries=  require('../config/libraries')
-  , menu=       require('../config/menu')
+var libraries=      require('../config/libraries')
+  , menu=           require('../config/menu')
 
-  , functions=  require('../routes/myModule/functions');
-
-exports.indexReget = function(req, res){
-    functions.getThemeFromPost(req, res);
-    
-    //  REDIRECT TO MESSAGE BOARD
-    res.writeHead(301,
-        {Location: '/'}
-    );
-    res.end();
-}
+  , accountManager= require('./myModule/accountManager')
+  , functions=      require('./myModule/functions')
  
 exports.index = function(req, res){
     theme = functions.getThemeFromCookies(req, res);
@@ -22,8 +13,15 @@ exports.index = function(req, res){
             title:  'Homepage',
             theme:  theme,
             menu:   menu,
+            user:   accountManager.getUser(req),
             
             libraries: libraries.libraries
         }
     );
 };
+
+exports.indexReget = function(req, res){
+    functions.getThemeFromPost(req, res);
+    
+    res.redirect('/');
+}

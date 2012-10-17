@@ -5,8 +5,22 @@ block content
         table
             tr
                 td(style= "vertical-align: top;")
-                    a(href= 'login')
-                        |   Login
+                    - if( typeof user === "undefined" )
+                        a(href= 'login')
+                            |   Login
+                        |   /
+                        a(href= 'signup')
+                            |   Signup
+                        
+                    - else
+                        font(size= '4')
+                            |   #{  user.account } (#{ user.nickname })
+                        br
+                        a(href= 'logout')
+                            |   Logout
+                        |   /
+                        a(href= 'disaccount')
+                            |   Disaccount
                     form(name="theme_form", method= "POST")
                         |   Theme :
                         select(name= "theme", onchange= "document.theme_form.submit()")

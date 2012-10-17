@@ -9,5 +9,9 @@
         "pageSize": "NODEJS_VNDJSMB_PAGESIZE",
         "pageNum":  "NODEJS_VNDJSMB_PAGENUM"
     },
-    "defaultMessagePageSize":   10
+    "defaultMessagePageSize":   10,
+    "signupForm":{
+        "account":  "NODEJS_VNDJSMB_SIGNUP_ACCOUNT",
+        "nickname": "NODEJS_VNDJSMB_SIGNUP_NICKNAME"
+    }
 }

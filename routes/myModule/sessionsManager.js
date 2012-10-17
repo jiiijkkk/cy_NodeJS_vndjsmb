@@ -1,8 +1,11 @@
+exports.setSession = function(req, name, value){
+    req.session[name] = value;
+}
 
+exports.getSession = function(req, name) {
+    return req.session[name];
+}
 
-exports.setSession = function(req, res){
-    console.log(req);
-    console.log(req.sessionID);
-    req.session.test = req.param('test');
-//    console.log(session);
+exports.removeSession = function(req, name) {
+    delete req.session[name];
 }

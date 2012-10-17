@@ -1,0 +1,37 @@
+extends ../index
+block contentPage
+    TABLE
+        DIV
+            FORM(method= "POST", action ="/signupProcess")
+                TR
+                    TD
+                        FONT(size= "5")
+                            |   A
+                        |ccount : 
+                        INPUT(name= "account", value= "#{ form_value.account }")
+                    TD(rowspan= '4')
+                        INPUT(type="submit", value= "Signup")
+                TR
+                    TD
+                        FONT(size= "5")
+                            |   N
+                        |ickname : 
+                        INPUT(name= "nickname", value= "#{ form_value.nickname }")
+                TR
+                    TD
+                        FONT(size= "5")
+                            |   P
+                        |assword : 
+                        INPUT(name= "password", type= "password")
+                TR
+                    TD
+                        FONT(size= "5")
+                            |   P
+                        |assword-confirmation : 
+                        INPUT(name= "password_confirmation", type= "password")
+                - if (typeof error !== "undefined")
+                    TR
+                        TD(colspan= '2')
+                            |   Error : 
+                            |   #{ error }
+                        

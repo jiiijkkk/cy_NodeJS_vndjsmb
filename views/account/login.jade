@@ -17,4 +17,9 @@ block contentPage
                             |   P
                         |assword : 
                         INPUT(name= "password", type= "password")
+                - if (typeof error !== "undefined")
+                    TR
+                        TD(colspan= '2')
+                            |   Error : 
+                            |   #{ error }
                         

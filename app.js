@@ -34,9 +34,16 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.post('/', routes.indexReget);
+
 app.get('/login', account.login);
 app.post('/login', account.loginReget);
 app.post('/loginProcess', account.loginProcess);
+app.get('/signup', account.signup);
+app.post('/signup', account.signupReget);
+app.post('/signupProcess', account.signupProcess);
+app.get('/logout', account.logout);
+app.get('/disaccount', account.disaccount);
+
 app.get('/mb', board.message);
 app.post('/mb', board.messageReget);
 app.post('/mb/changepagesize', board.changePageSize);

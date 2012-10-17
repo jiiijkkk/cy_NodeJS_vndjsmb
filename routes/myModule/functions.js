@@ -1,6 +1,9 @@
-var cookie_config = require('../../config/cookies')
+var moment = require('moment')
+  , cookie_config = require('../../config/cookies')
+  , sessions_config=    require('../../config/sessions')
+  
   , cookiesManager = require('./cookiesManager')
-  , moment = require('moment');
+  , sessionsManager = require('./sessionsManager')
 
 exports.getThemeFromPost = function(req, res){
     cookiesManager.setCookie(req, res, cookie_config.theme, req.body.theme);
@@ -67,4 +70,10 @@ exports.getClientIP = function (req){
 
 exports.getNow = function (){
     return moment(new Date()).format("YYYY/MM/DD HH:mm:ss");
+}
+
+exports.getErrorMessage = function(req, callback){
+    var error_message = sessionsManager.getSession(req, sessions_config.error_message);
+    sessionsManager.removeSession(req, sessions_config.error_message);
+    callback(error_message);
 }
