@@ -1,7 +1,7 @@
 var menu = require('../config/menu')
 
-  , functions = require('../routes/myModule/functions')
-  , messageManager = require('../routes/myModule/messageManager');
+  , functions=      require('./myModule/functions')
+  , messageManager= require('./myModule/messageManager');
 
 exports.messageReget = function(req, res){
     functions.getThemeFromPost(req, res);

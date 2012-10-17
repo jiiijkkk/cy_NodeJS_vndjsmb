@@ -36,6 +36,7 @@ app.get('/', routes.index);
 app.post('/', routes.indexReget);
 app.get('/login', account.login);
 app.post('/login', account.loginReget);
+app.post('/loginProcess', account.loginProcess);
 app.get('/mb', board.message);
 app.post('/mb', board.messageReget);
 app.post('/mb/changepagesize', board.changePageSize);

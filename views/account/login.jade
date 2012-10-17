@@ -5,12 +5,16 @@ block contentPage
             FORM(method= "POST", action ="/loginProcess")
                 TR
                     TD
-                        |   Name : 
-                        INPUT(name= "account")
+                        FONT(size= "5")
+                            |   A
+                        |ccount : 
+                        INPUT(name= "account", value= "#{ account }")
                     TD(rowspan= '2')
                         INPUT(type="submit", value= "Login")
                 TR
                     TD
-                        |   Password : 
+                        FONT(size= "5")
+                            |   P
+                        |assword : 
                         INPUT(name= "password", type= "password")
                         

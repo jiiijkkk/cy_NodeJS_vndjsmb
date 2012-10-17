@@ -3,7 +3,7 @@
     "password": "v",
     "database": "symfony",
     "messages": "msgb",
-    "admins":   "msgb_admin",
+    "accounts": "msgb_admin",
     "logs":     "msgb_log",
     "classes":  "msgb_class"
 }
