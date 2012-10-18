@@ -4,6 +4,7 @@
         "moment",
         "mysql",
         "cookies",
-        "keygrip"
+        "keygrip",
+        "redis"
     ]
 }

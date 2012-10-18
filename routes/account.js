@@ -13,9 +13,7 @@ var accountModule=  this
 exports.login = function(req, res){
     if(accountManager.isLogin(req)){
         res.redirect('/');
-    } else {
-        var theme = functions.getThemeFromCookies(req, res);
-        
+    } else {        
         account = cookiesManager.getCookie(req, res ,cookies_config.messageForm.account);
         if(!account) account = "";
 
@@ -23,10 +21,11 @@ exports.login = function(req, res){
             res.render(
                 'account/login',
                 {
-                    title:  'Login',
-                    theme:  theme,
-                    menu:   menu,
-                    user:   accountManager.getUser(req),
+                    title:          'Login',
+                    theme:          functions.getThemeFromCookies(req, res),
+                    menu:           menu,
+                    user:           accountManager.getUser(req),
+                    online_users:   accountManager.getOnlines(),
                     
                     account:    account,
                     error:      error
@@ -37,10 +36,10 @@ exports.login = function(req, res){
 }
 
 exports.loginReget = function(req, res){
+    functions.getThemeFromPost(req, res);
     if(accountManager.isLogin(req)){
         res.redirect('/');
     } else {
-        functions.getThemeFromPost(req, res);
         res.redirect('/login');
     }
 }
@@ -53,7 +52,7 @@ exports.loginProcess = function(req, res){
         accountManager.login(req.body.account, req.body.password, function (account){
             if(account){
                 cookiesManager.setCookie(req, res ,cookies_config.messageForm.nickname, account.nickname);
-                cookiesManager.setCookie(req, res ,cookies_config.messageForm.mobile, 0);
+                cookiesManager.removeCookie(req, res ,cookies_config.messageForm.mobile);
                 sessionsManager.setSession(req, sessions_config.login_user, account);
                 res.redirect('/');
             }
@@ -69,14 +68,12 @@ exports.signup = function(req, res){
     if(accountManager.isLogin(req)){
         res.redirect('/');
     } else {
-        var theme = functions.getThemeFromCookies(req, res);
-        
         form_value = {
             "account":  cookiesManager.getCookie(req, res, cookies_config.signupForm.account),
             "nickname": cookiesManager.getCookie(req, res, cookies_config.signupForm.nickname)
         }
-        cookiesManager.setCookie(req, res, cookies_config.signupForm.account, 0);
-        cookiesManager.setCookie(req, res, cookies_config.signupForm.nickname, 0);
+        cookiesManager.removeCookie(req, res, cookies_config.signupForm.account);
+        cookiesManager.removeCookie(req, res, cookies_config.signupForm.nickname);
         if(!form_value.account) form_value.account= "";
         if(!form_value.nickname)form_value.nickname= "";
         
@@ -84,10 +81,11 @@ exports.signup = function(req, res){
             res.render(
                 'account/signup',
                 {
-                    title:  'Signup',
-                    theme:  theme,
-                    menu:   menu,
-                    user:   accountManager.getUser(req),
+                    title:          'Signup',
+                    theme:          functions.getThemeFromCookies(req, res),
+                    menu:           menu,
+                    user:           accountManager.getUser(req),
+                    online_users:   accountManager.getOnlines(),
                     
                     form_value: form_value,
                     error:      error
@@ -98,10 +96,10 @@ exports.signup = function(req, res){
 }
 
 exports.signupReget = function(req, res){
+    functions.getThemeFromPost(req, res);
     if(accountManager.isLogin(req)){
         res.redirect('/');
     } else {
-        functions.getThemeFromPost(req, res);
         res.redirect('/signup');
     }
 }
@@ -123,8 +121,8 @@ exports.signupProcess = function(req, res){
             else {
                 accountManager.createAccount(req);
                 accountModule.loginProcess(req,res);
-                cookiesManager.setCookie(req, res, cookies_config.signupForm.account , 0);
-                cookiesManager.setCookie(req, res, cookies_config.signupForm.nickname , 0);
+                cookiesManager.removeCookie(req, res, cookies_config.signupForm.account);
+                cookiesManager.removeCookie(req, res, cookies_config.signupForm.nickname);
             }
         });
     }
@@ -140,4 +138,27 @@ exports.disaccount = function(req, res){
     accountManager.deleteAccount(sessionsManager.getSession(req, sessions_config.login_user).id);
     accountModule.logout(req,res);
 }
+
+exports.session = function(req, res, callback){
+    var isLoggingout = false;
+    var now = (new Date()).valueOf();
+    var last_action = sessionsManager.getSession(req, sessions_config.last_action);
+    if(accountManager.isLogin(req))
+        sessionsManager.setSession(req, sessions_config.last_action, now);
+    var timeout = sessions_config.timeout;
     
+    if(typeof last_action !== "undefined" &&
+            accountManager.isLogin(req) ){
+        if(last_action + timeout * 1000 < now){
+            sessionsManager.removeSession(req, sessions_config.login_user);
+            sessionsManager.removeSession(req, sessions_config.last_action);
+            accountManager.deleteOnline();
+            isLoggingout = true;
+        }
+    }
+    if(!accountManager.isLogin(req))
+        accountManager.deleteOnline();
+    accountManager.session(req);
+    
+    callback(isLoggingout);
+}

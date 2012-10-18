@@ -1,4 +1,6 @@
 {
+    "timeout":      1440,
+    "last_action":  "NODEJS_VNDJSMB_LAST_ACTION",
     "error_message":"NODEJS_VNDJSMB_ERROR_MESSAGE",
     "login_user":   "NODEJS_VNDJSMB_LOGIN_USER"
 }

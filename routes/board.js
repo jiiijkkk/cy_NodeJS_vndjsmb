@@ -5,8 +5,6 @@ var menu = require('../config/menu')
   , functions=      require('./myModule/functions')
 
 exports.message = function(req, res){
-    var theme = functions.getThemeFromCookies(req, res);
-    
     var default_info = functions.getMessageFormAndPageInfoFromCookies(req, res);
     
     messageManager.getMessages(default_info.pagesize, default_info.pagenum, function(messages){
@@ -20,10 +18,11 @@ exports.message = function(req, res){
             res.render(
                 'board'+ '/mb',
                 {
-                    title:  'Message Board',
-                    theme:  theme,
-                    menu:   menu,
-                    user:   accountManager.getUser(req),
+                    title:          'Message Board',
+                    theme:          functions.getThemeFromCookies(req, res),
+                    menu:           menu,
+                    user:           accountManager.getUser(req),
+                    online_users:   accountManager.getOnlines(),
                     
                     default_info:   default_info,
                     messages:       messages

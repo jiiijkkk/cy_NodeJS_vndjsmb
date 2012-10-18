@@ -30,7 +30,7 @@ block content
                                 - else
                                     option(value= '#{ menu.themes.file[i] }') #{ menu.themes.name[i] }
                         #{ theme }
-                td(rowspan= '2')
+                td(rowspan= '3')
                     block contentPage
             tr
                 td(style= "vertical-align: top;")
@@ -38,4 +38,9 @@ block content
                         - if (i != 0 )
                             br
                         a(href= menu.urls[i] ) #{ menu.names[i] }
+            tr
+                td(style= "vertical-align: top;")
+                    - each online_user in online_users
+                        |   #{ online_user.account } (#{ online_user.nickname })
+                        br
                     

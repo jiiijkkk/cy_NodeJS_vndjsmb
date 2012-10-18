@@ -6,6 +6,7 @@ var db_config=          require('../../config/database')
   
   , client = databaseManager.getClient(db_config)
 
+client.query('SET NAMES utf8');
 client.query('USE '+ db_config.database);
 
 exports.getUser = function (req){
@@ -75,4 +76,34 @@ exports.deleteAccount = function(id){
         }
     );
     
+}
+
+var onlines = {};
+exports.session = function (req){
+    var now = new Date();
+    for ( var i in onlines ){
+        if(onlines[i].time.valueOf() + sessions_config.timeout*1000 < now)
+            delete onlines[i];
+    }
+    onlines[req.sessionID] = {
+        user:   this.getUser(req),
+        time:   now
+    }
+}
+
+exports.deleteOnline = function (sid){
+    delete onlines[sid];
+}
+
+exports.getOnlines = function (){
+    var online_accounts = {}
+    for ( var i in onlines ){
+        if(typeof onlines[i].user !== "undefined"){
+            online_accounts[onlines[i].user.id] = {
+                "account":  onlines[i].user.account,
+                "nickname": onlines[i].user.nickname
+            }
+        }
+    }
+    return online_accounts;
 }
