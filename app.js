@@ -59,8 +59,8 @@ app.get('/mb', board.message);
 app.post('/mb', board.messageReget);
 app.post('/mb/changepagesize', board.changePageSize);
 app.post('/mb/changepagenum', board.changePageNum);
-app.get('/mb/delete/:id', board.deleteMessage);
 app.post('/comment', board.comment);
+app.get('/mb/delete/:id', board.deleteMessage);
 
 app.get('/users', user.list);
 
