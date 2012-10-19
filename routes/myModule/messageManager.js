@@ -58,3 +58,12 @@ exports.addMessage = function (req){
         "')"
     );
 };
+
+exports.deleteMessage = function (req){
+    var functions = require('./functions.js');
+    
+    client.query(
+        "DELETE FROM "+ db_config.messages+
+        " WHERE id = "+ req.params.id
+    );
+};

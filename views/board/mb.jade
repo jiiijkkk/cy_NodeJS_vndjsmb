@@ -63,6 +63,10 @@ block contentPage
             TR
                 TH
                     DIV #{ message.title } ... From #{ message.ip } @ #{ message.time }
+                        - if( typeof user !== "undefined" )
+                            |   
+                            a(href='/mb/delete/#{ message.id }' )
+                                | [x]
             TR
                 TD
                     DIV #{ message.account } (#{ message.nickname }) 

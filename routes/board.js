@@ -59,3 +59,10 @@ exports.comment = function(req, res){
     functions.setMessageFormFromPost(req, res);
     res.redirect('/mb');
 };
+
+exports.deleteMessage = function(req, res){
+    if(accountManager.isLogin(req)){
+        messageManager.deleteMessage(req);
+    }
+    res.redirect('/mb');
+};
