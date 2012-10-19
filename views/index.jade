@@ -40,7 +40,16 @@ block content
                         a(href= menu.urls[i] ) #{ menu.names[i] }
             tr
                 td(style= "vertical-align: top;")
-                    - each online_user in online_users
+                    |   #{ online_users.quantity.users } member
+                    - if (online_users.quantity.users > 1)
+                        |s
+                    |   online
+                    - if(online_users.quantity.users > 0)
+                        | : 
+                        br
+                    - var online_anonymous
+                    - each online_user in online_users.users
                         |   #{ online_user.account } (#{ online_user.nickname })
                         br
-                    
+                    br
+                    |   Anonymous : #{ online_users.quantity.anonymous }

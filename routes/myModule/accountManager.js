@@ -96,13 +96,19 @@ exports.deleteOnline = function (sid){
 }
 
 exports.getOnlines = function (){
-    var online_accounts = {}
+    var online_accounts = {
+        "quantity":   {
+            "anonymous":    0,
+            "users":        0
+        },
+        "users":      {}
+    }
     for ( var i in onlines ){
-        if(typeof onlines[i].user !== "undefined"){
-            online_accounts[onlines[i].user.id] = {
-                "account":  onlines[i].user.account,
-                "nickname": onlines[i].user.nickname
-            }
+        if(typeof onlines[i].user === "undefined"){
+            online_accounts.quantity.anonymous++;
+        }else if(typeof online_accounts.users[onlines[i].user.id] === "undefined"){
+            online_accounts.quantity.users++;
+            online_accounts.users[onlines[i].user.id] = onlines[i].user;
         }
     }
     return online_accounts;

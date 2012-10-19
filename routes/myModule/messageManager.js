@@ -36,20 +36,6 @@ exports.getPageMax = function(pagesize, callback){
     });
 };
 
-exports.getLastMessageID = function (callback){
-    client.query(
-        'SELECT id FROM '+db_config.messages+
-        ' ORDER BY id DESC'+
-        ' LIMIT 0,1',
-        function selectCb(err, ids, fields) {
-            if (err) {
-                throw err;
-            }
-            callback(ids[0].id);
-        }
-    )
-};
-
 exports.addMessage = function (req){
     var functions = require('./functions.js');
     
@@ -57,20 +43,18 @@ exports.addMessage = function (req){
     var time = functions.getNow();
     var ip = functions.getClientIP(req);
     
-    this.getLastMessageID(function (id){
-        client.query(
-            "INSERT INTO "+ db_config.messages+
-            " (id, account, nickname, mobile, title, contant, time, ip) VALUES"+
-            " ('"+
-                (id+ 1)+        "', '"+
-                post.account+   "', '"+
-                post.nickname+  "', '"+
-                post.mobile+    "', '"+
-                post.title+     "', '"+
-                post.contant+   "', '"+
-                time+           "', '"+
-                ip+
-            "')"
-        )
-    });
+    client.query(
+        "INSERT INTO "+ db_config.messages+
+        " (id, account, nickname, mobile, title, contant, time, ip) VALUES"+
+        " ('"+
+            (id+ 1)+        "', '"+
+            post.account+   "', '"+
+            post.nickname+  "', '"+
+            post.mobile+    "', '"+
+            post.title+     "', '"+
+            post.contant+   "', '"+
+            time+           "', '"+
+            ip+
+        "')"
+    );
 };
