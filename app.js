@@ -6,11 +6,20 @@
 var express=    require('express')
   , http=       require('http')
   , path=       require('path')
+  
+    //  PATH ROUTER
   , user=       require('./routes/user')  
   , routes=     require('./routes')
   , account=    require('./routes/account')
   , board=      require('./routes/board')
+  
+    //  MY JSON
+  , secert=     require('./config/secret')
+  
+    //  MY JS
+  , accountManager= require('./routes/myModule/accountManager')
 
+    //  GET APP
   , app=    express();
 
 app.configure(function(){
@@ -24,13 +33,27 @@ app.configure(function(){
     app.use(express.cookieParser('your secret here'));
     app.use(express.session());
     
+    //  ASYNCHRONOUS SESSION TIMEOUT && SECRET AREA
     app.use(function(req, res, next){
-        account.session(req, res,function(isLoggingout){
-            if(isLoggingout){
-                routes.index(req, res);
+        account.session(req, res);
+        var isRedirect = false;
+        if(accountManager.isLogin(req)){
+            for(var i in secert.AnonymousOnly){
+                if(matches = req.url.match('^' + i + '$')){
+                    isRedirect = true;
+                    res.redirect(secert.AnonymousOnly[i]);
+                }
             }
-            else next();
-        });
+        } else {
+            for(var i in secert.UsersOnly){
+                if(matches = req.url.match('^' + i + '$')){
+                    isRedirect = true;
+                    res.redirect(secert.UsersOnly[i]);
+                }
+            }
+        }
+        if (!isRedirect)
+            next();
     });
     
     app.use(app.router);

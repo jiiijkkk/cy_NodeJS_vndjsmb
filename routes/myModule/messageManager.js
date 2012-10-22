@@ -45,9 +45,8 @@ exports.addMessage = function (req){
     
     client.query(
         "INSERT INTO "+ db_config.messages+
-        " (id, account, nickname, mobile, title, contant, time, ip) VALUES"+
+        " (account, nickname, mobile, title, contant, time, ip) VALUES"+
         " ('"+
-            (id+ 1)+        "', '"+
             post.account+   "', '"+
             post.nickname+  "', '"+
             post.mobile+    "', '"+

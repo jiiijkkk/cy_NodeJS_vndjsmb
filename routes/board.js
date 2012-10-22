@@ -61,8 +61,6 @@ exports.comment = function(req, res){
 };
 
 exports.deleteMessage = function(req, res){
-    if(accountManager.isLogin(req)){
-        messageManager.deleteMessage(req);
-    }
+    messageManager.deleteMessage(req);
     res.redirect('/mb');
 };
